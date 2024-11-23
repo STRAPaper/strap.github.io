@@ -7,8 +7,18 @@
   <meta name="keywords" content="Robot Learning, Retrieval, Dynamic Time Warping, Vision Foundation Models">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>STRAP: Robot Sub-Trajectory Retrieval for Augmented Policy Learning</title>
-  
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XHJWDHYL2Z"></script>
   <script>
+
+    // Google Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-XHJWDHYL2Z');
+
     // Libero task widget
     VIDEO_PATH = './static/videos/retrieval_strips/';
     TASK_NAMES = [
@@ -138,13 +148,69 @@
             <img style="vertical-align: middle; width: 250px; height: auto;" src="./static/images/strap_logo.png"
               alt="STRAP logo" />
             <h1 class="title is-1 publication-title">Robot Sub-Trajectory Retrieval for Augmented Policy Learning</h1>
-              </div>
-            </div>
+            <div class="is-size-5 publication-authors">
+
+            
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Rollouts -->
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+            <video autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/teaser/kitchen_sink.mp4"
+                      type="video/mp4">
+            </video>
+        </div>
+        <div class="item">
+            <video autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/teaser/pen_in_cup_ood_1.mp4"
+                      type="video/mp4">
+            </video>
+        </div>
+        <div class="item">
+          <video autoplay muted loop playsinline width="100%">
+            <source src="./static/videos/teaser/kitchen_stove.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video autoplay muted loop playsinline width="100%">
+              <source src="./static/videos/teaser/pen_in_cup_ood_0.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video autoplay muted loop playsinline width="100%">
+            <source src="./static/videos/teaser/kitchen_table.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video autoplay muted loop playsinline width="100%">
+            <source src="./static/videos/teaser/pen_in_cup_base.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <p>
+          \(\texttt{STRAP}\) achieves <strong>robust behavior from only 3 task demonstrations</strong>!
+        </p>
+      </div>
+    </div> 
+  </div>
+</section>
+<!--/ Rollouts. --> 
+
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -155,8 +221,11 @@
 
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified">
+              <p><b>TL;DR</b> <i>retrieval</i> for robust few-shot imitation learning by encoding trajectories with
+                <i>vision foundation models</i> and retrieving <i>sub-trajectories</i> with <i>subsequence dynamic time
+                  warping</i></p>
               <p>
-                Robot learning is witnessing a significant increase in the size, diversity, and complexity of
+                <!-- Robot learning is witnessing a significant increase in the size, diversity, and complexity of
                 pre-collected datasets, mirroring trends in domains such as natural language processing and computer
                 vision. Many robot learning methods treat such datasets as multi-task expert data and learn a
                 multi-task, generalist policy by training broadly across them. Notably, while these generalist policies
@@ -176,13 +245,34 @@
                 methods in
                 simulated and real experiments, showing the ability to scale to much larger offline datasets in the real
                 world as well as the ability to learn robust control policies with just a handful of real-world
-                demonstrations.
+                demonstrations. -->
+                Robot learning is increasingly relying on large, diverse, and complex datasets, similar to trends in NLP
+                and computer vision. Generalist policies trained on these datasets can perform well across multiple
+                tasks but often underperform on individual tasks due to negative data transfer. This work proposes
+                training policies during deployment, adjusting to specific scenarios rather than using pre-trained,
+                zero-shot models. Our approach, \(\texttt{STRAP}\), retrieves and trains on relevant data at a
+                sub-trajectory level, enhancing robustness. Results show that \(\texttt{STRAP}\)
+                surpasses existing methods in both simulated and real experiments, achieving robust control with minimal
+                real-world demonstrations.
               </p>
             </div>
           </div>
         </div>
       </div>
       <!--/ Abstract. -->
+
+      <!-- Paper video. -->
+      <!-- <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
+            <iframe width="400" src="static/videos/strap_talk_crop.mp4" title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div> -->
+      <!--/ Paper video. -->
     </div>
   </section>
 
@@ -192,7 +282,7 @@
 
       <div class="columns is-centered is-mobile is-vcentered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Pipeline Overview</h2>
+          <h2 class="title is-3">Method Overview</h2>
         </div>
       </div>
       <br>
@@ -210,6 +300,21 @@
               training a policy on the union of \(\mathcal{D}_{retrieved}\) and \(\mathcal{D}_{target}\) results in
               better performance and robustness.
             </p>
+
+            <br>
+            <div class="content">
+              <p><b>Our key insights are:</b></p>
+              <ul>
+                <li><strong>Vision foundation models</strong> offer powerful out-of-the-box representations for
+                  trajectory retrieval. They sufficiently encode scene semantics and offer visual robustness in contrast
+                  to brittle in-domain feature extractors from prior work.
+                </li>
+                <li><strong>Sub-trajectory retrieval</strong> enable maximal re-use of prior data capturing temporality
+                  of tasks and dynamics.</li>
+                <li><strong>Subsequence Dynamic Time Warping</strong> finds optimal sub-trajectory matches in offline
+                  datasets agnostic to length, horizon or demonstration frequency.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -222,71 +327,184 @@
   </section>
   <!--/ Pipeline Overview -->
 
-  <!-- DTW -->
+
+
+  <!-- Real-World Experiments -->
   <section class="section">
     <div class="container is-max-desktop">
 
       <div class="columns is-centered is-mobile is-vcentered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Subsequence Dynamic Time Warping</h2>
+          <h2 class="title is-3">Real-World Experiments</h2>
         </div>
       </div>
-      <br>
       <div class="container is-max-desktop">
-
+        
+        <br>
+        <p>
+          <b>Kitchen</b>
+        </p>
+        <br>
         <div class="columns is-centered is-mobile is-vcentered">
           <div class="column is-full-width">
 
-            <img src="./static/images/dtw_matching.png" class="money-figure" alt="Pipeline Overview" />
-            <br>
+            <img src="./static/images/results_real_kitchen.png" class="money-figure" alt="Pipeline Overview"
+              style="display: block; margin: 0 auto; max-width: 50%; height: auto;" />
             <br>
             <p>
-              <b>Subsequence Dynamic Time Warping:</b>
+              \(\texttt{STRAP}\) solves several pick and place tasks in a realistic kitchen environment.
+              \(\texttt{STRAP}\) is surprisingly <b>robust to object poses unseen in demonstrations</b> while baselines fail to adapt. The policy further shows recovery behavior, completing the task even when the initial grasp fails and alters the object's pose.
 
-              To retrieve sequences of variable length, we build Dynamic Time Warping (DTW). DTW methods compute the
-              similarity between two sequence that may vary in length or frequency.
-              The algorithm aligns the sequences by warping the time axis of the series using a set of step sizes to
-              minimize the distance between corresponding points while obeying boundary conditions.
-              Subsequence Dynamic Time Warping (S-DTW) loosens these boundary conditions to allow for subsequence
-              matching.
             </p>
           </div>
         </div>
       </div>
-      <div class="columns is-centered is-mobile is-vcentered">
 
-        <div class="container is-max-desktop">
+      <br>
+        <p>
+          <b>Kitchen-DROID</b>
+        </p>
+        <br>
+        <div class="columns is-centered is-mobile is-vcentered">
+          <div class="column is-full-width">
 
-          <div class="columns is-centered is-mobile is-vcentered">
-            <div class="column is-full-width">
-              <br>
-              <br>
-              <img src="./static/images/dtw_matrix.png" class="money-figure" alt="Pipeline Overview" />
-              <br>
-              <br>
-              <p>
-                DTW computes a <b>distance matrix</b> that compares the distance between each pair of points in the two
-                sequences. We use vision foundation models, <i>e.g.</i>, DINOv2, to encode the image observations and
-                compute their distance with the L2 norm. The optimal matching is represented by the <b>shortest path</b>
-                through the matrix. Dynamic programming finds this path, minimizing the total distance between the two
-                sequences.
-                The figure above shows matching a demonstration from \(\mathcal{D}_{target}\) (y-axis) to a sub-sequence
-                in the offline dataset \(\mathcal{D}_{prior}\) (x-axis). Brighter colors indicate higher <span style="color: 
-#fce624;"><b>&#9650;</b></span> and darker colors indicate lower <span style="color: 
-#440055;"><b>&#9660;</b></span> cost. The red line <span style="color: #e90a12;"><b>&#9644;</b></span> indicates the
-                optimal path through the matrix, <i>i.e.</i>, the optimal match between the sequences.
-              </p>
+            <img src="./static/images/results_real_kitchen_droid.png" class="money-figure" alt="Pipeline Overview"
+              style="display: block; margin: 0 auto; max-width: 50%; height: auto;" />
+            <br>
+            <p>
+              To investigate scalability to larger datasets, we construct an additional offline dataset consisting of 5k demonstrations from the DROID dataset and 50 demonstrations collected in the same environment.
+              Since DTW scales linearly with the number of demonstrations and \(\texttt{STRAP}\)'s policy training stage is independent of the offline dataset's size but depends on the amount of data retrieved, it <b>naturally scales to larger datasets</b> like DROID while maintaining performance.
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container is-max-desktop">
+        <!-- <h2 class="title is-4">Datasets</h2> -->
+        <br>
+        <p>
+          <b>Datasets</b>
+        </p>
+        <br>
+        <div class="columns is-mobile is-vcentered">
+          <div class="column is-half">
+            <div class="content has-text-centered">
+              <p>Demonstration Dataset \(\mathcal{D}_{target}\)</p>
+              <video id="replay-video" autoplay playsinline loop muted controls>
+                <source src="./static/videos/kitchen_demos.mp4" type="video/mp4">
+              </video>
+              <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="content has-text-centered">
+              <p>Offline Dataset \(\mathcal{D}_{prior}\)</p>
+              <video id="replay-video" autoplay playsinline loop muted controls>
+                <source src="./static/videos/kitchen_dataset.mp4" type="video/mp4">
+              </video>
+              <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
             </div>
           </div>
         </div>
-        <div class="columns is-centered is-mobile is-vcentered">
 
+        <br>
+        <p>
+          <b>Franka-Pen-in-Cup</b>
+        </p>
+        <br>
+        <div class="columns is-centered is-mobile is-vcentered">
+          <div class="column is-full-width">
+
+            <img src="./static/images/results_real.png" class="money-figure" alt="Pipeline Overview"
+              style="display: block; margin: 0 auto; max-width: 50%; height: auto;" />
+            <br>
+            <p>
+              \(\texttt{STRAP}\) can leverage data from seemingly unrelated tasks to learn robustness behavior.
+              While behavior cloning replays the demonstrations, \(\texttt{STRAP}\) can adapt to unseen object poses and appearance.
+
+              <!-- \(\mathcal{D}_{target}\)
+              (<i>base</i>), BC lacks robustness to out-of-distribution (<i>OOD</i>) scenarios. The policy replays
+              the trajectories observed in \(\mathcal{D}_{target}\). \(\texttt{STRAP}\) retrieves relevant
+              sub-trajectories from \(\mathcal{D}_{prior}\), <i>e.g.</i>,
+              the robot putting the screwdriver in the cup or picking up pens in various poses. Augmented policy
+              learning then distills this knowledge into a policy, resulting in generalization to an OOD scenario. -->
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
+
+      <!-- Intuition -->
+      <div class="container is-max-desktop">
+
+        <!-- <br>
+        <p>
+          <b>In-distribution (base)</b>
+        </p>
+        <br>
+        <div class="columns is-centered is-mobile is-vcentered">
+          <div class="column is-full-width">
+            <div class="content has-text-centered">
+              <video id="replay-video" controls autoplay playsinline loop muted>
+                <source src="./static/videos/pen_in_cup_base.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <div class="container is-max-desktop">
+          
+          <br>
+          <p>
+            <b>Out-of-distribution (OOD)</b>
+          </p>
+          <br>
+          <div class="columns is-centered is-mobile is-vcentered">
+            <div class="column is-full-width">
+              <div class="content has-text-centered">
+                <video id="replay-video" controls autoplay playsinline loop muted>
+                  <source src="./static/videos/pen_in_cup_ood.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="container is-max-desktop">
+            <!-- <h2 class="title is-4">Datasets</h2> -->
+            <br>
+            <p>
+              <b>Datasets</b>
+            </p>
+            <br>
+            <div class="columns is-mobile is-vcentered">
+              <div class="column is-half">
+                <div class="content has-text-centered">
+                  <p>Demonstration Dataset \(\mathcal{D}_{target}\)</p>
+                  <video id="replay-video" autoplay playsinline loop muted controls>
+                    <source src="./static/videos/pick_dataset.mp4" type="video/mp4">
+                  </video>
+                  <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
+                </div>
+              </div>
+
+              <div class="column is-half">
+                <div class="content has-text-centered">
+                  <p>Offline Dataset \(\mathcal{D}_{prior}\)</p>
+                  <video id="replay-video" autoplay playsinline loop muted controls>
+                    <source src="./static/videos/10x10_dataset.mp4" type="video/mp4">
+                  </video>
+                  <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
   </section>
-  <!--/ DTW -->
+  <!-- Real-World Experiments -->
 
   <!-- Experiments -->
   <section class="section">
@@ -306,6 +524,12 @@
         <div class="columns is-centered is-mobile is-vcentered">
           <div class="column is-full-width">
 
+            <!-- <p>
+              <b>Simulation Experiments:</b>
+            </p>
+            <br>
+            <br> -->
+
             <img src="./static/images/results_sim.png" class="money-figure" alt="Pipeline Overview"
               style="display: block; margin: 0 auto; max-width: 90%; height: auto;" />
             <br>
@@ -313,7 +537,7 @@
             <p>
               <b>\(\texttt{STRAP}\) outperforms the retrieval baselines</b> <i>BehaviorRetrieval</i> (BR) [Du et al.
               2023] and
-              <i>FlowRetrieval</i> (FR) [Lin et al. 2024] on average by \(+12.20\%\) and \(+12.47\%\) across all
+              <i>FlowRetrieval</i> (FR) [Lin et al. 2024] on average by \(+24.7\%\) and \(+25.0\%\) across all
               LIBERO-10 tasks. These results demonstrate the policy's robustness to object poses. Both <b>DINOv2
                 and CLIP are viable representations for \(\texttt{STRAP}\)</b> with only a
               \(+0.73\%\)
@@ -323,6 +547,7 @@
         </div>
       </div>
       <div class="container is-max-desktop">
+        <!-- <h2 class="title is-4">Datasets</h2> -->
         <br>
         <p>
           <b>Datasets</b>
@@ -356,110 +581,8 @@
   </section>
   <!--/ Experiments -->
 
-  <!-- Real-World Experiments -->
-  <section class="section">
-    <div class="container is-max-desktop">
-
-      <div class="columns is-centered is-mobile is-vcentered">
-        <div class="column is-full-width">
-          <h2 class="title is-3">Real-World Experiments</h2>
-        </div>
-      </div>
-      <div class="container is-max-desktop">
-
-        <br>
-        <p>
-          <b>Pen-in-Cup</b>
-        </p>
-        <br>
-        <div class="columns is-centered is-mobile is-vcentered">
-          <div class="column is-full-width">
-
-            <img src="./static/images/results_real.png" class="money-figure" alt="Pipeline Overview"
-              style="display: block; margin: 0 auto; max-width: 50%; height: auto;" />
-            <br>
-            <p>
-              While Behavior Cloning (BC) and \(\texttt{STRAP}\) solve the Franka-Pen-in-Cup demonstrated in
-              \(\mathcal{D}_{target}\)
-              (<i>base</i>), BC lacks robustness to out-of-distribution (<i>OOD</i>) scenarios. The policy replays
-              the trajectories observed in \(\mathcal{D}_{target}\). \(\texttt{STRAP}\) retrieves relevant
-              sub-trajectories from \(\mathcal{D}_{prior}\), <i>e.g.</i>,
-              the robot putting the screwdriver in the cup or picking up pens in various poses. Augmented policy
-              learning then distills this knowledge into a policy, resulting in generalization to an OOD scenario.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Intuition -->
-      <div class="container is-max-desktop">
-
-        <br>
-        <p>
-          <b>In-distribution (base)</b>
-        </p>
-        <br>
-        <div class="columns is-centered is-mobile is-vcentered">
-          <div class="column is-full-width">
-            <div class="content has-text-centered">
-              <video id="replay-video" controls autoplay playsinline loop muted>
-                <source src="./static/videos/pen_in_cup_base.mp4" type="video/mp4">
-              </video>
-            </div>
-          </div>
-        </div>
-
-        <div class="container is-max-desktop">
-
-          <br>
-          <p>
-            <b>Out-of-distribution (OOD)</b>
-          </p>
-          <br>
-          <div class="columns is-centered is-mobile is-vcentered">
-            <div class="column is-full-width">
-              <div class="content has-text-centered">
-                <video id="replay-video" controls autoplay playsinline loop muted>
-                  <source src="./static/videos/pen_in_cup_ood.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-          </div>
-
-          <div class="container is-max-desktop">
-            <br>
-            <p>
-              <b>Datasets</b>
-            </p>
-            <br>
-            <div class="columns is-mobile is-vcentered">
-              <div class="column is-half">
-                <div class="content has-text-centered">
-                  <p>Demonstration Dataset \(\mathcal{D}_{target}\)</p>
-                  <video id="replay-video" autoplay playsinline loop muted controls>
-                    <source src="./static/videos/pick_dataset.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-
-              <div class="column is-half">
-                <div class="content has-text-centered">
-                  <p>Offline Dataset \(\mathcal{D}_{prior}\)</p>
-                  <video id="replay-video" autoplay playsinline loop muted controls>
-                    <source src="./static/videos/10x10_dataset.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-  </section>
-  <!-- Real-World Experiments -->
-
   <!-- Qualitative DTW -->
+  <!-- <section class="section"> -->
   <section class="section">
     <div class="container is-max-desktop">
 
@@ -471,6 +594,7 @@
       </div>
 
       <div class="container is-max-desktop">
+        <!-- <h2 class="title is-4">Datasets</h2> -->
         <br>
         <p>
           <b>Does \(\texttt{STRAP}\) retrieval scale to DROID?</b>
@@ -483,6 +607,7 @@
               <video id="replay-video" autoplay playsinline loop muted controls>
                 <source src="./static/videos/retrieval_droid/demo.mp4" type="video/mp4">
               </video>
+              <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
             </div>
           </div>
 
@@ -492,6 +617,7 @@
               <video id="replay-video" autoplay playsinline loop muted controls>
                 <source src="./static/videos/retrieval_droid/retrieved.mp4" type="video/mp4">
               </video>
+              <!-- <h4 class="title is-8">Pen-in-Cup (out-of-distribution)</h4> -->
             </div>
           </div>
         </div>
@@ -562,21 +688,33 @@
               </div>
 
               <div id="task-libero-vid-input-4" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
               <div id="task-libero-vid-input-5" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
               <div id="task-libero-vid-input-6" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
               <div id="task-libero-vid-input-7" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
               <div id="task-libero-vid-input-8" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
               <div id="task-libero-vid-input-9" class="rgb-image">
+                <!-- <video id="task-libero-vid" autoplay loop playsinline muted>
+                  <source src="./static/videos/video_strip (1).mp4" type="video/mp4"> -->
               </div>
 
             </div>
@@ -683,6 +821,72 @@
     </div>
   </section>
   <!--/ Ablations -->
+
+  <!-- DTW -->
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered is-mobile is-vcentered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Subsequence Dynamic Time Warping</h2>
+        </div>
+      </div>
+      <br>
+      <div class="container is-max-desktop">
+
+        <div class="columns is-centered is-mobile is-vcentered">
+          <div class="column is-full-width">
+
+            <img src="./static/images/dtw_matching.png" class="money-figure" alt="Pipeline Overview" />
+            <br>
+            <br>
+            <p>
+              <b>Subsequence Dynamic Time Warping:</b>
+
+              To retrieve sequences of variable length, we build Dynamic Time Warping (DTW). DTW methods compute the
+              similarity between two sequence that may vary in length or frequency.
+              The algorithm aligns the sequences by warping the time axis of the series using a set of step sizes to
+              minimize the distance between corresponding points while obeying boundary conditions.
+              Subsequence Dynamic Time Warping (S-DTW) loosens these boundary conditions to allow for subsequence
+              matching.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered is-mobile is-vcentered">
+
+        <div class="container is-max-desktop">
+
+          <div class="columns is-centered is-mobile is-vcentered">
+            <div class="column is-full-width">
+              <br>
+              <br>
+              <img src="./static/images/dtw_matrix.png" class="money-figure" alt="Pipeline Overview" />
+              <br>
+              <br>
+              <p>
+                DTW computes a <b>distance matrix</b> that compares the distance between each pair of points in the two
+                sequences. We use vision foundation models, <i>e.g.</i>, DINOv2, to encode the image observations and
+                compute their distance with the L2 norm. The optimal matching is represented by the <b>shortest path</b>
+                through the matrix. Dynamic programming finds this path, minimizing the total distance between the two
+                sequences.
+                The figure above shows matching a demonstration from \(\mathcal{D}_{target}\) (y-axis) to a sub-sequence
+                in the offline dataset \(\mathcal{D}_{prior}\) (x-axis). Brighter colors indicate higher <span style="color: 
+  #fce624;"><b>&#9650;</b></span> and darker colors indicate lower <span style="color: 
+  #440055;"><b>&#9660;</b></span> cost. The red line <span style="color: #e90a12;"><b>&#9644;</b></span> indicates the
+                optimal path through the matrix, <i>i.e.</i>, the optimal match between the sequences.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered is-mobile is-vcentered">
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!--/ DTW -->
 
   <footer class="footer">
     <div class="container">
